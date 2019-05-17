@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load blog_tags%}
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/blog.css" %}">
+    <title>  {% block title_block %}
+      {% endblock %}</title>
+  </head>
+  <body>
+<div class="content">
+      {% block content_block %}
+      {% endblock %}
+</div>
+<div class="sidebar">
+  <h2>GVK'S BLOG</h2>
+  <p>The total number of published posts upto date: {% total_posts %}</p>
+  <h3>Latest posts:{% show_latest_posts 3%}</h3>
+  <h3>Most commented posts</h3>
+  {% get_most_commented_posts as most_commented_posts%}
+  <ul>
+    {% for post in most_commented_posts %}
+      <li><a href="{{post.get_absolute_url}}">{{post.title}}</a></li>
+      {% endfor %}
+  </ul>
+
+</div>
+
+  </body>
+</html>
